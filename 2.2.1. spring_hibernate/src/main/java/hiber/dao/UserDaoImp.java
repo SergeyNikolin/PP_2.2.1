@@ -26,4 +26,22 @@ public class UserDaoImp implements UserDao {
       return query.getResultList();
    }
 
+   @Override
+   public User getUserByCar(String model1, int i) {
+      try {
+         return sessionFactory.getCurrentSession()
+                 .createQuery("from User where car.model = :model1 and car.series = :i", User.class)
+                 .setParameter("model1", model1).setParameter("i", i)
+                 .getResultList().get(0);
+      } catch (IndexOutOfBoundsException e) {
+         System.out.println("User not found");
+         return null;
+      }
+   }
+
+   @Override
+   public void clearTable() {
+      sessionFactory.getCurrentSession().createQuery("delete from User").executeUpdate();
+      sessionFactory.getCurrentSession().createQuery("delete from Car ").executeUpdate();
+   }
 }

@@ -7,4 +7,6 @@ import java.util.List;
 public interface UserDao {
    void add(User user);
    List<User> listUsers();
+   User getUserByCar(String model1, int i);
+   void clearTable();
 }
